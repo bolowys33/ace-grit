@@ -43,18 +43,23 @@ const Header = () => {
                         ))}
                         <li>
                             <Link
-                            onMouseEnter={handleShowArea}
-                            onMouseLeave={handleCloseArea}
+                                onMouseEnter={handleShowArea}
+                                onMouseLeave={handleCloseArea}
                                 href={"/practic-areas"}
                                 className="link relative text-navy hover:border-b hover:border-navy">
                                 Practice Areas <KeyboardArrowDown />
                             </Link>
                             {showArea && (
-                                <div className="absolute">
-                                    <ul>
+                                <div
+                                    onMouseEnter={handleShowArea}
+                                    onMouseLeave={handleCloseArea}
+                                    className="absolute mt-2 px-6 py-2 bg-white w-[200px]">
+                                    <ul className="space-y-5">
                                         {practiceAreas.map((area) => (
                                             <li key={area.path}>
-                                                <Link href={area.path}>area.name</Link>
+                                                <Link href={area.path}>
+                                                    {area.name}
+                                                </Link>
                                             </li>
                                         ))}
                                     </ul>
