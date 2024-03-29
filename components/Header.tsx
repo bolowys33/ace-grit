@@ -16,7 +16,7 @@ const Header = () => {
     };
 
     return (
-        <header className="bg-white shadow relative">
+        <header className="bg-white shadow relative z-50">
             <Container maxWidth="xl">
                 <nav className="flex justify-between items-center px-4 py-4">
                     <div>
@@ -51,13 +51,13 @@ const Header = () => {
             </Container>
             {menuOpen ? (
                 <div
-                    className={`fixed inset-y-0 left-0 bg-opacity-50 -z-50 w-full duration-500 ${
+                    className={`fixed inset-y-0 left-0 bg-opacity-50 z-20 w-full duration-500 ${
                         menuOpen ? "translate-y-[130px]" : "-translate-y-0"
                     }`}>
                     <ul>
                         {links.map((link) => (
                             <li key={link.path}>
-                                <div className="w-[full] text-navy border-t border-gray px-10 py-3">
+                                <div className="w-[full] text-navy border-t bg-white border-gray px-10 py-3">
                                     <Link href={link.path} className="py-2">
                                         {link.name}
                                     </Link>
