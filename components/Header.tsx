@@ -1,18 +1,27 @@
 "use client";
 import Link from "next/link";
-import { links } from "@/constants/links";
+import { links, links2, practiceAreas } from "@/constants/links";
 import logo from "@/public/assets/logo.png";
 import Image from "next/image";
 import { Container } from "@mui/material";
-import { Close, Menu } from "@mui/icons-material";
+import { Close, KeyboardArrowDown, Menu } from "@mui/icons-material";
 import { useState } from "react";
 import Button from "./Button";
 
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
+    const [showArea, setShowArea] = useState<boolean>(false);
 
     const handleMenu = () => {
         setMenuOpen(!menuOpen);
+    };
+
+    const handleShowArea = () => {
+        setShowArea(true);
+    };
+
+    const handleCloseArea = () => {
+        setShowArea(false);
     };
 
     return (
@@ -22,18 +31,50 @@ const Header = () => {
                     <div>
                         <Image src={logo} alt="brand logo" width={100} />
                     </div>
-                    <ul className="lg:space-x-1 xl:space-x-4 hidden lg:flex items-center ">
+                    <ul className="lg:space-x-1 xl:space-x-4 hidden lg:flex items-center text-[16.5px] ">
                         {links.map((link) => (
                             <li key={link.path}>
                                 <Link
                                     href={link.path}
-                                    className="link text-navy hover:border-b hover:border-navy">
+                                    className="link text-navy hover:border-b hover:border-navy ">
                                     {link.name}
                                 </Link>
                             </li>
                         ))}
                         <li>
-                            <Button title="request an appointment" classes="ml-6 lg:ml-10" />
+                            <Link
+                            onMouseEnter={handleShowArea}
+                            onMouseLeave={handleCloseArea}
+                                href={"/practic-areas"}
+                                className="link relative text-navy hover:border-b hover:border-navy">
+                                Practice Areas <KeyboardArrowDown />
+                            </Link>
+                            {showArea && (
+                                <div className="absolute">
+                                    <ul>
+                                        {practiceAreas.map((area) => (
+                                            <li key={area.path}>
+                                                <Link href={area.path}>area.name</Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+                        </li>
+                        {links2.map((link) => (
+                            <li key={link.path}>
+                                <Link
+                                    href={link.path}
+                                    className="link text-navy hover:border-b hover:border-navy ">
+                                    {link.name}
+                                </Link>
+                            </li>
+                        ))}
+                        <li>
+                            <Button
+                                title="request an appointment"
+                                classes="ml-6 lg:ml-10"
+                            />
                         </li>
                     </ul>
                     <button
