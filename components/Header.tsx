@@ -110,14 +110,17 @@ const Header = () => {
             </Container>
             {menuOpen && (
                 <div
-                    className={`fixed inset-y-0 left-0 bg-opacity-50 z-20 w-full duration-500 lg:hidden ${
+                    className={`absolute inset-y-0 left-0 bg-opacity-50 z-20 w-full transition-all duration-500 lg:hidden ${
                         menuOpen ? "translate-y-[130px]" : "-translate-y-0"
                     }`}>
                     <ul>
                         {links.map((link) => (
                             <li key={link.path}>
                                 <div className="w-[full] text-navy border-t bg-white border-gray px-10 py-3">
-                                    <Link href={link.path} className="py-2">
+                                    <Link
+                                        href={link.path}
+                                        onClick={handleMenu}
+                                        className="py-2 ">
                                         {link.name}
                                     </Link>
                                 </div>
@@ -125,7 +128,10 @@ const Header = () => {
                         ))}
                         <li>
                             <div className="w-[full] text-navy border-t bg-white border-gray px-10 py-3 flex justify-between">
-                                <Link href={"/practic-areas"} className="py-2">
+                                <Link
+                                    href={"/practic-areas"}
+                                    onClick={handleMenu}
+                                    className="py-2 ">
                                     Practice Areas
                                 </Link>
                                 <button
@@ -149,8 +155,10 @@ const Header = () => {
                                             <div className="w-[full] text-navy border-t bg-white border-gray px-10 py-3">
                                                 <Link
                                                     href={area.path}
+                                                    onClick={handleMenu}
                                                     className="px-4 py-2">
-                                                   <KeyboardArrowRight /> {area.name}
+                                                    <KeyboardArrowRight />{" "}
+                                                    {area.name}
                                                 </Link>
                                             </div>
                                         </li>
@@ -161,7 +169,10 @@ const Header = () => {
                         {links2.map((link) => (
                             <li key={link.path}>
                                 <div className="w-[full] text-navy border-t bg-white border-gray px-10 py-3">
-                                    <Link href={link.path} className="py-2">
+                                    <Link
+                                        href={link.path}
+                                        onClick={handleMenu}
+                                        className="py-2">
                                         {link.name}
                                     </Link>
                                 </div>

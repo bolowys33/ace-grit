@@ -25,7 +25,7 @@ const Footer = () => {
                             <p className="">Email: soabayomi2013@gmail.com</p>
                             <p></p>
                         </div>
-                        <div>
+                        <div className="md:w-[157px]">
                             <h2 className="font-main text-xl md:text-2xl font-bold mb-6">
                                 Practice Areas
                             </h2>
@@ -39,7 +39,7 @@ const Footer = () => {
                                 ))}
                             </ul>
                         </div>
-                        <div>
+                        <div className="md:w-[132px]">
                             <h2 className="font-main text-xl md:text-2xl font-bold mb-6">
                                 Quick Links
                             </h2>
