@@ -4,16 +4,29 @@ import { links, links2, practiceAreas } from "@/constants/links";
 import logo from "@/public/assets/logo.png";
 import Image from "next/image";
 import { Container } from "@mui/material";
-import { Close, KeyboardArrowDown, Menu } from "@mui/icons-material";
+import {
+    Close,
+    Keyboard,
+    KeyboardArrowDown,
+    KeyboardArrowRight,
+    KeyboardArrowUp,
+    Menu,
+} from "@mui/icons-material";
 import { useState } from "react";
 import Button from "./Button";
+import { link } from "fs";
 
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
+    const [areaOpen, setAreaOpen] = useState<boolean>(false);
     const [showArea, setShowArea] = useState<boolean>(false);
 
     const handleMenu = () => {
         setMenuOpen(!menuOpen);
+    };
+
+    const handleArea = () => {
+        setAreaOpen(!areaOpen);
     };
 
     const handleShowArea = () => {
@@ -95,9 +108,9 @@ const Header = () => {
                     </button>
                 </nav>
             </Container>
-            {menuOpen ? (
+            {menuOpen && (
                 <div
-                    className={`fixed inset-y-0 left-0 bg-opacity-50 z-20 w-full duration-500 ${
+                    className={`fixed inset-y-0 left-0 bg-opacity-50 z-20 w-full duration-500 lg:hidden ${
                         menuOpen ? "translate-y-[130px]" : "-translate-y-0"
                     }`}>
                     <ul>
@@ -110,10 +123,52 @@ const Header = () => {
                                 </div>
                             </li>
                         ))}
+                        <li>
+                            <div className="w-[full] text-navy border-t bg-white border-gray px-10 py-3 flex justify-between">
+                                <Link href={"/practic-areas"} className="py-2">
+                                    Practice Areas
+                                </Link>
+                                <button
+                                    onClick={handleArea}
+                                    type="button"
+                                    title="arrow"
+                                    className="border px-2">
+                                    {areaOpen ? (
+                                        <KeyboardArrowUp />
+                                    ) : (
+                                        <KeyboardArrowDown />
+                                    )}
+                                </button>
+                            </div>
+                        </li>
+                        <li>
+                            {areaOpen && (
+                                <ul>
+                                    {practiceAreas.map((area) => (
+                                        <li key={area.path}>
+                                            <div className="w-[full] text-navy border-t bg-white border-gray px-10 py-3">
+                                                <Link
+                                                    href={area.path}
+                                                    className="px-4 py-2">
+                                                   <KeyboardArrowRight /> {area.name}
+                                                </Link>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </li>
+                        {links2.map((link) => (
+                            <li key={link.path}>
+                                <div className="w-[full] text-navy border-t bg-white border-gray px-10 py-3">
+                                    <Link href={link.path} className="py-2">
+                                        {link.name}
+                                    </Link>
+                                </div>
+                            </li>
+                        ))}
                     </ul>
                 </div>
-            ) : (
-                <div></div>
             )}
         </header>
     );
