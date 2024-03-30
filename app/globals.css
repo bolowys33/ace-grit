@@ -48,17 +48,4 @@ body {
   width: 100%; /* Expand width on hover */
 }
 
-.transition-opacity {
-  transition-property: opacity;
-}
-
-.duration-500 {
-  transition-duration: 0.5s;
-}
-
-/* Define additional styles for the open state */
-.open {
-  transition: transform 0.5s ease-in-out; 
-}
-
 
