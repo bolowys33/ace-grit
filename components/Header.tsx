@@ -4,16 +4,29 @@ import { links, links2, practiceAreas } from "@/constants/links";
 import logo from "@/public/assets/logo.png";
 import Image from "next/image";
 import { Container } from "@mui/material";
-import { Close, KeyboardArrowDown, Menu } from "@mui/icons-material";
+import {
+    Close,
+    Keyboard,
+    KeyboardArrowDown,
+    KeyboardArrowRight,
+    KeyboardArrowUp,
+    Menu,
+} from "@mui/icons-material";
 import { useState } from "react";
 import Button from "./Button";
+import { link } from "fs";
 
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
+    const [areaOpen, setAreaOpen] = useState<boolean>(false);
     const [showArea, setShowArea] = useState<boolean>(false);
 
     const handleMenu = () => {
         setMenuOpen(!menuOpen);
+    };
+
+    const handleArea = () => {
+        setAreaOpen(!areaOpen);
     };
 
     const handleShowArea = () => {
@@ -43,18 +56,23 @@ const Header = () => {
                         ))}
                         <li>
                             <Link
-                            onMouseEnter={handleShowArea}
-                            onMouseLeave={handleCloseArea}
+                                onMouseEnter={handleShowArea}
+                                onMouseLeave={handleCloseArea}
                                 href={"/practic-areas"}
                                 className="link relative text-navy hover:border-b hover:border-navy">
                                 Practice Areas <KeyboardArrowDown />
                             </Link>
                             {showArea && (
-                                <div className="absolute">
-                                    <ul>
+                                <div
+                                    onMouseEnter={handleShowArea}
+                                    onMouseLeave={handleCloseArea}
+                                    className="absolute mt-2 px-6 py-2 bg-white w-[200px]">
+                                    <ul className="space-y-5">
                                         {practiceAreas.map((area) => (
                                             <li key={area.path}>
-                                                <Link href={area.path}>area.name</Link>
+                                                <Link href={area.path}>
+                                                    {area.name}
+                                                </Link>
                                             </li>
                                         ))}
                                     </ul>
@@ -90,16 +108,71 @@ const Header = () => {
                     </button>
                 </nav>
             </Container>
-            {menuOpen ? (
+            {menuOpen && (
                 <div
-                    className={`fixed inset-y-0 left-0 bg-opacity-50 z-20 w-full duration-500 ${
+                    className={`absolute inset-y-0 left-0 bg-opacity-50 z-20 w-full transition-all duration-500 lg:hidden ${
                         menuOpen ? "translate-y-[130px]" : "-translate-y-0"
                     }`}>
                     <ul>
                         {links.map((link) => (
                             <li key={link.path}>
                                 <div className="w-[full] text-navy border-t bg-white border-gray px-10 py-3">
-                                    <Link href={link.path} className="py-2">
+                                    <Link
+                                        href={link.path}
+                                        onClick={handleMenu}
+                                        className="py-2 ">
+                                        {link.name}
+                                    </Link>
+                                </div>
+                            </li>
+                        ))}
+                        <li>
+                            <div className="w-[full] text-navy border-t bg-white border-gray px-10 py-3 flex justify-between">
+                                <Link
+                                    href={"/practic-areas"}
+                                    onClick={handleMenu}
+                                    className="py-2 ">
+                                    Practice Areas
+                                </Link>
+                                <button
+                                    onClick={handleArea}
+                                    type="button"
+                                    title="arrow"
+                                    className="border px-2">
+                                    {areaOpen ? (
+                                        <KeyboardArrowUp />
+                                    ) : (
+                                        <KeyboardArrowDown />
+                                    )}
+                                </button>
+                            </div>
+                        </li>
+                        <li>
+                            {areaOpen && (
+                                <ul>
+                                    {practiceAreas.map((area) => (
+                                        <li key={area.path}>
+                                            <div className="w-[full] text-navy border-t bg-white border-gray px-10 py-3">
+                                                <Link
+                                                    href={area.path}
+                                                    onClick={handleMenu}
+                                                    className="px-4 py-2">
+                                                    <KeyboardArrowRight />{" "}
+                                                    {area.name}
+                                                </Link>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </li>
+                        {links2.map((link) => (
+                            <li key={link.path}>
+                                <div className="w-[full] text-navy border-t bg-white border-gray px-10 py-3">
+                                    <Link
+                                        href={link.path}
+                                        onClick={handleMenu}
+                                        className="py-2">
                                         {link.name}
                                     </Link>
                                 </div>
@@ -107,8 +180,6 @@ const Header = () => {
                         ))}
                     </ul>
                 </div>
-            ) : (
-                <div></div>
             )}
         </header>
     );
