@@ -13,6 +13,14 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      fontFamily : {
+        main: '"Cormorant Garamond", serif'
+      },
+      colors: {
+        navy: '#000080',
+        gold: '#FFD700',
+        gray: '#D3D3D3'
+      }
     },
   },
   plugins: [],
